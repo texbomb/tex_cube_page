@@ -299,11 +299,31 @@
         }
         
         .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .archetype-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .archetype-section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1a1a1a;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .archetype-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
         }
-        
+
         .card-item {
             padding: 15px;
             background: rgba(0, 0, 0, 0.02);
@@ -312,13 +332,13 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .card-item:hover {
             background: rgba(0, 0, 0, 0.05);
             transform: translateX(5px);
             border-left-width: 5px;
         }
-        
+
         .card-name {
             font-weight: 600;
             color: #1a1a1a;
@@ -700,9 +720,23 @@
                 panelSymbols.appendChild(createManaSymbol(color));
             });
 
-            // Update card list with all archetypes
+            // Update card list with all archetypes grouped
             cardList.innerHTML = '';
             guild.archetypes.forEach(archetype => {
+                // Create archetype section
+                const archetypeSection = document.createElement('div');
+                archetypeSection.className = 'archetype-section';
+
+                // Add archetype title
+                const archetypeTitle = document.createElement('div');
+                archetypeTitle.className = 'archetype-section-title';
+                archetypeTitle.textContent = archetype.name;
+                archetypeSection.appendChild(archetypeTitle);
+
+                // Create cards container
+                const cardsContainer = document.createElement('div');
+                cardsContainer.className = 'archetype-cards';
+
                 archetype.cards.forEach(card => {
                     const cardItem = document.createElement('div');
                     cardItem.className = 'card-item';
@@ -718,8 +752,11 @@
                     cardItem.addEventListener('mouseenter', () => showCardPreview(card));
                     cardItem.addEventListener('mouseleave', () => hideCardPreview());
 
-                    cardList.appendChild(cardItem);
+                    cardsContainer.appendChild(cardItem);
                 });
+
+                archetypeSection.appendChild(cardsContainer);
+                cardList.appendChild(archetypeSection);
             });
 
             // Show panel
@@ -749,7 +786,7 @@
 
         // Reset preview when mouse leaves card list area
         document.getElementById('card-list').addEventListener('mouseleave', hideCardPreview);
-        
+
         // Close panel with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -757,6 +794,13 @@
                 if (panel.classList.contains('active')) {
                     hideCardPanel();
                 }
+            }
+        });
+
+        // Close panel when clicking outside
+        document.getElementById('card-panel').addEventListener('click', (e) => {
+            if (e.target.id === 'card-panel') {
+                hideCardPanel();
             }
         });
 
