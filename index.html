@@ -359,7 +359,7 @@
         <div class="content">
             <div class="yorion-section">
                 <div class="yorion-art" id="card-preview">
-                    <img src="https://cards.scryfall.io/large/front/8/f/8ff9c83d-c5a3-4b66-bc7c-b9e4264c4c81.jpg" alt="Yorion, Sky Nomad" class="default-image" id="default-image">
+                    <img src="" alt="Yorion, Sky Nomad" class="default-image" id="default-image">
                     <img src="" alt="" class="preview-image" id="preview-image" style="display: none;">
                 </div>
                 <div class="yorion-label" id="card-label">Yorion, Sky Nomad</div>
@@ -386,136 +386,176 @@
     </div>
 
     <script>
-        // Data structure for archetypes
-        const archetypeData = {
-            blink: {
-                name: 'BLINK',
-                guild: 'azorius',
+        // Guild data structure
+        const guildData = {
+            azorius: {
+                name: 'AZORIUS',
                 colors: ['W', 'U'],
-                description: 'Abuse ETB triggers by repeatedly flickering your creatures for maximum value.',
-                cards: [
-                    'Ephemerate',
-                    'Flickerwisp',
-                    'Restoration Angel',
-                    'Yorion, Sky Nomad',
-                    'Displacer Kitten'
+                archetypes: [
+                    {
+                        name: 'BLINK',
+                        description: 'Abuse ETB triggers by repeatedly flickering your creatures for maximum value.',
+                        cards: [
+                            'Ephemerate',
+                            'Flickerwisp',
+                            'Restoration Angel',
+                            'Yorion, Sky Nomad',
+                            'Displacer Kitten'
+                        ]
+                    }
                 ]
             },
-            reanimator: {
-                name: 'REANIMATOR',
-                guild: 'dimir',
+            dimir: {
+                name: 'DIMIR',
                 colors: ['U', 'B'],
-                description: 'Dump massive threats into your graveyard and cheat them directly into play.',
-                cards: [
-                    'Dread Return',
-                    'Living Death',
-                    'Archon of Cruelty',
-                    'Zombify',
-                    'Unearth'
+                archetypes: [
+                    {
+                        name: 'REANIMATOR',
+                        description: 'Dump massive threats into your graveyard and cheat them directly into play.',
+                        cards: [
+                            'Dread Return',
+                            'Living Death',
+                            'Archon of Cruelty',
+                            'Zombify',
+                            'Unearth'
+                        ]
+                    }
                 ]
             },
-            sacrifice: {
-                name: 'SACRIFICE',
-                guild: 'rakdos',
+            rakdos: {
+                name: 'RAKDOS',
                 colors: ['B', 'R'],
-                description: 'Generate value by sacrificing creatures for damage, cards, and powerful effects.',
-                cards: [
-                    'Goblin Bombardment',
-                    'Oni-Cult Anvil',
-                    'Woe Strider',
-                    'Marionette Apprentice',
-                    'Bloodtithe Harvester'
+                archetypes: [
+                    {
+                        name: 'SACRIFICE',
+                        description: 'Generate value by sacrificing creatures for damage, cards, and powerful effects.',
+                        cards: [
+                            'Goblin Bombardment',
+                            'Oni-Cult Anvil',
+                            'Woe Strider',
+                            'Marionette Apprentice',
+                            'Bloodtithe Harvester'
+                        ]
+                    }
                 ]
             },
-            lands: {
-                name: 'LANDS MATTER',
-                guild: 'gruul',
+            gruul: {
+                name: 'GRUUL',
                 colors: ['R', 'G'],
-                description: 'Use lands as a resource with recursion and powerful landfall triggers.',
-                cards: [
-                    'Life from the Loam',
-                    'Wrenn and Six',
-                    'Titania, Protector of Argoth',
-                    'The Gitrog Monster',
-                    'Omnath, Locus of Rage'
+                archetypes: [
+                    {
+                        name: 'LANDS MATTER',
+                        description: 'Use lands as a resource with recursion and powerful landfall triggers.',
+                        cards: [
+                            'Life from the Loam',
+                            'Wrenn and Six',
+                            'Titania, Protector of Argoth',
+                            'The Gitrog Monster',
+                            'Omnath, Locus of Rage'
+                        ]
+                    }
                 ]
             },
-            tokens: {
-                name: 'TOKENS',
-                guild: 'selesnya',
+            selesnya: {
+                name: 'SELESNYA',
                 colors: ['G', 'W'],
-                description: 'Create an army of tokens and pump them up to overwhelm your opponent.',
-                cards: [
-                    'Intangible Virtue',
-                    'Angel of Invention',
-                    'Lingering Souls',
-                    'Esika\'s Chariot',
-                    'Voice of Resurgence'
+                archetypes: [
+                    {
+                        name: 'TOKENS',
+                        description: 'Create an army of tokens and pump them up to overwhelm your opponent.',
+                        cards: [
+                            'Intangible Virtue',
+                            'Angel of Invention',
+                            'Lingering Souls',
+                            'Esika\'s Chariot',
+                            'Voice of Resurgence'
+                        ]
+                    }
                 ]
             },
-            recursion: {
-                name: 'RECURSION',
-                guild: 'orzhov',
+            orzhov: {
+                name: 'ORZHOV',
                 colors: ['W', 'B'],
-                description: 'Bring back small creatures and value permanents from your graveyard repeatedly.',
-                cards: [
-                    'Lurrus of the Dream-Den',
-                    'Serra Paragon',
-                    'Sevinne\'s Reclamation',
-                    'Return Triumphant',
-                    'Sun Titan'
+                archetypes: [
+                    {
+                        name: 'RECURSION',
+                        description: 'Bring back small creatures and value permanents from your graveyard repeatedly.',
+                        cards: [
+                            'Lurrus of the Dream-Den',
+                            'Serra Paragon',
+                            'Sevinne\'s Reclamation',
+                            'Return Triumphant',
+                            'Sun Titan'
+                        ]
+                    }
                 ]
             },
-            spellslinger: {
-                name: 'SPELLSLINGER',
-                guild: 'izzet',
+            izzet: {
+                name: 'IZZET',
                 colors: ['U', 'R'],
-                description: 'Cast instants and sorceries to generate tokens and overwhelming card advantage.',
-                cards: [
-                    'Monastery Mentor',
-                    'Bedlam Reveler',
-                    'Guttersnipe',
-                    'Drake Hatcher',
-                    'Chrome Host Seedshark'
+                archetypes: [
+                    {
+                        name: 'SPELLSLINGER',
+                        description: 'Cast instants and sorceries to generate tokens and overwhelming card advantage.',
+                        cards: [
+                            'Monastery Mentor',
+                            'Bedlam Reveler',
+                            'Guttersnipe',
+                            'Drake Hatcher',
+                            'Chrome Host Seedshark'
+                        ]
+                    }
                 ]
             },
-            selfmill: {
-                name: 'SELF-MILL',
-                guild: 'golgari',
+            golgari: {
+                name: 'GOLGARI',
                 colors: ['B', 'G'],
-                description: 'Fill your graveyard to power up creatures and enable powerful synergies.',
-                cards: [
-                    'Golgari Grave-Troll',
-                    'Splinterfright',
-                    'Satyr Wayfinder',
-                    'Grapple with the Past',
-                    'Grist, the Hunger Tide'
+                archetypes: [
+                    {
+                        name: 'SELF-MILL',
+                        description: 'Fill your graveyard to power up creatures and enable powerful synergies.',
+                        cards: [
+                            'Golgari Grave-Troll',
+                            'Splinterfright',
+                            'Satyr Wayfinder',
+                            'Grapple with the Past',
+                            'Grist, the Hunger Tide'
+                        ]
+                    }
                 ]
             },
-            equipment: {
-                name: 'EQUIPMENT',
-                guild: 'boros',
+            boros: {
+                name: 'BOROS',
                 colors: ['R', 'W'],
-                description: 'Attach powerful equipment to efficient creatures for aggressive victories.',
-                cards: [
-                    'Stoneforge Mystic',
-                    'Puresteel Paladin',
-                    'Colossus Hammer',
-                    'Batterskull',
-                    'Embercleave'
+                archetypes: [
+                    {
+                        name: 'EQUIPMENT',
+                        description: 'Attach powerful equipment to efficient creatures for aggressive victories.',
+                        cards: [
+                            'Stoneforge Mystic',
+                            'Puresteel Paladin',
+                            'Colossus Hammer',
+                            'Batterskull',
+                            'Embercleave'
+                        ]
+                    }
                 ]
             },
-            ramp: {
-                name: 'RAMP',
-                guild: 'simic',
+            simic: {
+                name: 'SIMIC',
                 colors: ['G', 'U'],
-                description: 'Accelerate your mana and deploy game-ending threats ahead of schedule.',
-                cards: [
-                    'Primeval Titan',
-                    'Oracle of Mul Daya',
-                    'Lotus Cobra',
-                    'Tireless Tracker',
-                    'Kodama\'s Reach'
+                archetypes: [
+                    {
+                        name: 'RAMP',
+                        description: 'Accelerate your mana and deploy game-ending threats ahead of schedule.',
+                        cards: [
+                            'Primeval Titan',
+                            'Oracle of Mul Daya',
+                            'Lotus Cobra',
+                            'Tireless Tracker',
+                            'Kodama\'s Reach'
+                        ]
+                    }
                 ]
             }
         };
@@ -588,95 +628,105 @@
             }, 300);
         }
 
-        // Generate archetype cards
+        // Generate guild cards
         function generateArchetypes() {
             const grid = document.getElementById('archetypes-grid');
-            
-            Object.entries(archetypeData).forEach(([key, data]) => {
-                const archetype = document.createElement('div');
-                archetype.className = `archetype ${data.guild}`;
-                archetype.setAttribute('tabindex', '0');
-                archetype.setAttribute('role', 'button');
-                archetype.setAttribute('aria-label', `View ${data.name} archetype cards`);
-                archetype.dataset.archetype = key;
-                
+
+            Object.entries(guildData).forEach(([guildKey, guild]) => {
+                const guildBox = document.createElement('div');
+                guildBox.className = `archetype ${guildKey}`;
+                guildBox.setAttribute('tabindex', '0');
+                guildBox.setAttribute('role', 'button');
+                guildBox.setAttribute('aria-label', `View ${guild.name} archetypes`);
+                guildBox.dataset.guild = guildKey;
+
                 const header = document.createElement('div');
                 header.className = 'archetype-header';
-                
+
                 const symbols = document.createElement('div');
                 symbols.className = 'color-symbols';
-                data.colors.forEach(color => {
+                guild.colors.forEach(color => {
                     symbols.appendChild(createManaSymbol(color));
                 });
-                
+
                 const name = document.createElement('div');
                 name.className = 'archetype-name';
-                name.textContent = data.name;
-                
+                name.textContent = guild.name;
+
                 header.appendChild(symbols);
                 header.appendChild(name);
-                
+
                 const description = document.createElement('div');
                 description.className = 'archetype-description';
-                description.textContent = data.description;
-                
-                archetype.appendChild(header);
-                archetype.appendChild(description);
-                
+
+                // Add all archetypes for this guild
+                guild.archetypes.forEach((archetype, index) => {
+                    if (index > 0) {
+                        description.appendChild(document.createElement('br'));
+                    }
+                    const archetypeText = document.createTextNode(`${archetype.name}: ${archetype.description}`);
+                    description.appendChild(archetypeText);
+                });
+
+                guildBox.appendChild(header);
+                guildBox.appendChild(description);
+
                 // Click handler
-                archetype.addEventListener('click', () => showCardPanel(key));
-                archetype.addEventListener('keypress', (e) => {
+                guildBox.addEventListener('click', () => showCardPanel(guildKey));
+                guildBox.addEventListener('keypress', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        showCardPanel(key);
+                        showCardPanel(guildKey);
                     }
                 });
-                
-                grid.appendChild(archetype);
+
+                grid.appendChild(guildBox);
             });
         }
 
         // Show card panel
-        function showCardPanel(archetypeKey) {
-            const data = archetypeData[archetypeKey];
+        function showCardPanel(guildKey) {
+            const guild = guildData[guildKey];
             const panel = document.getElementById('card-panel');
             const grid = document.getElementById('archetypes-grid');
             const panelTitle = document.getElementById('panel-title');
             const panelSymbols = document.getElementById('panel-symbols');
             const cardList = document.getElementById('card-list');
-            
+
             // Update panel title and symbols
-            panelTitle.textContent = data.name;
+            panelTitle.textContent = guild.name;
             panelSymbols.innerHTML = '';
-            data.colors.forEach(color => {
+            guild.colors.forEach(color => {
                 panelSymbols.appendChild(createManaSymbol(color));
             });
-            
-            // Update card list
+
+            // Update card list with all archetypes
             cardList.innerHTML = '';
-            data.cards.forEach(card => {
-                const cardItem = document.createElement('div');
-                cardItem.className = 'card-item';
-                cardItem.dataset.cardName = card;
-                
-                const cardName = document.createElement('div');
-                cardName.className = 'card-name';
-                cardName.textContent = card;
-                
-                cardItem.appendChild(cardName);
-                
-                // Add hover events for card preview
-                cardItem.addEventListener('mouseenter', () => showCardPreview(card));
-                cardItem.addEventListener('mouseleave', () => hideCardPreview());
-                
-                cardList.appendChild(cardItem);
+            guild.archetypes.forEach(archetype => {
+                archetype.cards.forEach(card => {
+                    const cardItem = document.createElement('div');
+                    cardItem.className = 'card-item';
+                    cardItem.dataset.cardName = card;
+
+                    const cardName = document.createElement('div');
+                    cardName.className = 'card-name';
+                    cardName.textContent = card;
+
+                    cardItem.appendChild(cardName);
+
+                    // Add hover events for card preview
+                    cardItem.addEventListener('mouseenter', () => showCardPreview(card));
+                    cardItem.addEventListener('mouseleave', () => hideCardPreview());
+
+                    cardList.appendChild(cardItem);
+                });
             });
-            
+
             // Show panel
             grid.classList.add('dimmed');
             panel.classList.add('active');
             panel.setAttribute('aria-hidden', 'false');
-            
+
             // Focus close button for accessibility
             document.getElementById('close-panel').focus();
         }
@@ -710,7 +760,16 @@
             }
         });
 
+        // Initialize default Yorion image
+        async function initializeDefaultImage() {
+            const imageUrl = await fetchCardImage('Yorion, Sky Nomad');
+            if (imageUrl) {
+                defaultImage.src = imageUrl;
+            }
+        }
+
         // Initialize
+        initializeDefaultImage();
         generateArchetypes();
     </script>
 </body>
