@@ -322,6 +322,14 @@
             border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
 
+        .archetype-section-description {
+            font-size: 0.9em;
+            color: #4a4a4a;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
         .archetype-cards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -766,12 +774,12 @@
                 const description = document.createElement('div');
                 description.className = 'archetype-description';
 
-                // Add all archetypes for this guild
+                // Add all archetype names only (no descriptions)
                 guild.archetypes.forEach((archetype, index) => {
                     if (index > 0) {
                         description.appendChild(document.createElement('br'));
                     }
-                    const archetypeText = document.createTextNode(`${archetype.name}: ${archetype.description}`);
+                    const archetypeText = document.createTextNode(archetype.name);
                     description.appendChild(archetypeText);
                 });
 
@@ -819,6 +827,12 @@
                 archetypeTitle.className = 'archetype-section-title';
                 archetypeTitle.textContent = archetype.name;
                 archetypeSection.appendChild(archetypeTitle);
+
+                // Add archetype description
+                const archetypeDesc = document.createElement('div');
+                archetypeDesc.className = 'archetype-section-description';
+                archetypeDesc.textContent = archetype.description;
+                archetypeSection.appendChild(archetypeDesc);
 
                 // Create cards container
                 const cardsContainer = document.createElement('div');
