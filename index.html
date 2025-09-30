@@ -67,7 +67,22 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 140, 50, 0.4);
         }
-        
+
+        .intro-text {
+            text-align: center;
+            color: #2a3a4a;
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro-text strong {
+            color: #1a2a3a;
+            font-weight: 600;
+        }
+
         .content {
             display: grid;
             grid-template-columns: 400px 1fr;
@@ -413,7 +428,13 @@
             <div class="title">CUBE DRAFT ARCHETYPES</div>
             <a href="https://moxfield.com/decks/CtodFgSutEKa-RfS5nmvyA" target="_blank" rel="noopener noreferrer" class="cube-link">VIEW FULL CUBE LIST →</a>
         </div>
-        
+
+        <div class="intro-text">
+            Welcome to this <strong>synergy-focused cube</strong> designed around powerful archetype interactions.
+            Click on any guild to explore its supported strategies and key signpost cards.
+            While these archetypes provide a framework for drafting, <strong>many more synergies and combinations await discovery</strong> — experiment and find your own winning lines!
+        </div>
+
         <div class="content">
             <div class="yorion-section">
                 <div class="yorion-art" id="card-preview">
@@ -460,6 +481,17 @@
                             'Yorion, Sky Nomad',
                             'Phelia, Exuberant Shepherd'
                         ]
+                    },
+                    {
+                        name: 'CONTROL',
+                        description: 'Control the game with board wipes and countermagic, then win with powerful threats.',
+                        cards: [
+                            'Wrath of God',
+                            'Counterspell',
+                            'Elspeth, Sun\'s Champion',
+                            'Torrential Gearhulk',
+                            'Fact or Fiction'
+                        ]
                     }
                 ]
             },
@@ -468,14 +500,14 @@
                 colors: ['U', 'B'],
                 archetypes: [
                     {
-                        name: 'REANIMATOR',
-                        description: 'Dump massive threats into your graveyard and cheat them directly into play.',
+                        name: 'SELF-MILL',
+                        description: 'Mill yourself to enable alternate win conditions or assemble powerful graveyard synergies.',
                         cards: [
-                            'Dread Return',
-                            'Living Death',
-                            'Archon of Cruelty',
-                            'Zombify',
-                            'Unearth'
+                            'Jace, Wielder of Mysteries',
+                            'Laboratory Maniac',
+                            'Ripples of Undeath',
+                            'Taeko, the Patient Avalanche',
+                            'Deep Analysis'
                         ]
                     },
                     {
@@ -488,6 +520,17 @@
                             'Malcolm, Alluring Scoundrel',
                             'Sedgemoor Witch'
                         ]
+                    },
+                    {
+                        name: 'REANIMATOR',
+                        description: 'Dump massive threats into your graveyard and cheat them directly into play.',
+                        cards: [
+                            'Dread Return',
+                            'Living Death',
+                            'Archon of Cruelty',
+                            'Zombify',
+                            'Unearth'
+                        ]
                     }
                 ]
             },
@@ -495,6 +538,17 @@
                 name: 'RAKDOS',
                 colors: ['B', 'R'],
                 archetypes: [
+                    {
+                        name: 'ARTIFACTS',
+                        description: 'Sacrifice artifacts for value and leverage artifact synergies for damage and card advantage.',
+                        cards: [
+                            'Imskir Iron-Eater',
+                            'Marionette Apprentice',
+                            'Oni-Cult Anvil',
+                            'Breya\'s Apprentice',
+                            'Experimental Synthesizer'
+                        ]
+                    },
                     {
                         name: 'SACRIFICE',
                         description: 'Generate value by sacrificing creatures for damage, cards, and powerful effects.',
@@ -533,6 +587,17 @@
                             'The Gitrog Monster',
                             'Omnath, Locus of Rage'
                         ]
+                    },
+                    {
+                        name: 'BIG STOMPY',
+                        description: 'Accelerate with mana dorks and deploy massive creatures to dominate the battlefield.',
+                        cards: [
+                            'Llanowar Elves',
+                            'Arbor Elf',
+                            'Craterhoof Behemoth',
+                            'Trumpeting Carnosaur',
+                            'Agonasaur Rex'
+                        ]
                     }
                 ]
             },
@@ -558,6 +623,17 @@
                 colors: ['W', 'B'],
                 archetypes: [
                     {
+                        name: 'ARISTOCRATS',
+                        description: 'Sacrifice creatures for value and drain opponents with death triggers.',
+                        cards: [
+                            'Bastion of Remembrance',
+                            'Doom Foretold',
+                            'Fleshtaker',
+                            'Marionette Apprentice',
+                            'Tormod, the Desecrator'
+                        ]
+                    },
+                    {
                         name: 'RECURSION',
                         description: 'Bring back small creatures and value permanents from your graveyard repeatedly.',
                         cards: [
@@ -567,18 +643,8 @@
                             'Return Triumphant',
                             'Sun Titan'
                         ]
-                    },
-                    {
-                        name: 'ARISTOCRATS',
-                        description: 'Sacrifice creatures for value and drain opponents with death triggers.',
-                        cards: [
-                            'Bastion of Remembrance',
-                            'Doom Foretold',
-                            'Fleshtaker',
-                            'Bloodtithe Harvester',
-                            'Tormod, the Desecrator'
-                        ]
                     }
+                    
                 ]
             },
             izzet: {
@@ -589,7 +655,7 @@
                         name: 'SPELLSLINGER',
                         description: 'Cast instants and sorceries to generate tokens and overwhelming card advantage.',
                         cards: [
-                            'Monastery Mentor',
+                            'Opt',
                             'Bedlam Reveler',
                             'Guttersnipe',
                             'Drake Hatcher',
