@@ -77,6 +77,31 @@
             height: 100%;
             object-fit: cover;
             border-radius: 15px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .yorion-art .default-image {
+            opacity: 1;
+        }
+        
+        .yorion-art .default-image.hidden {
+            opacity: 0;
+        }
+        
+        .yorion-art .preview-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .yorion-art .preview-image.visible {
+            opacity: 1;
         }
         
         .yorion-label {
@@ -85,6 +110,8 @@
             font-size: 1.2em;
             font-style: italic;
             text-align: center;
+            min-height: 1.5em;
+            transition: all 0.3s ease;
         }
         
         .archetypes-container {
@@ -283,6 +310,7 @@
             border-radius: 8px;
             border-left: 3px solid rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .card-item:hover {
@@ -330,10 +358,11 @@
         
         <div class="content">
             <div class="yorion-section">
-                <div class="yorion-art">
-                    <img src="https://cards.scryfall.io/large/front/8/f/8ff9c83d-c5a3-4b66-bc7c-b9e4264c4c81.jpg" alt="Yorion, Sky Nomad">
+                <div class="yorion-art" id="card-preview">
+                    <img src="https://cards.scryfall.io/large/front/8/f/8ff9c83d-c5a3-4b66-bc7c-b9e4264c4c81.jpg" alt="Yorion, Sky Nomad" class="default-image" id="default-image">
+                    <img src="" alt="" class="preview-image" id="preview-image" style="display: none;">
                 </div>
-                <div class="yorion-label">Yorion, Sky Nomad</div>
+                <div class="yorion-label" id="card-label">Yorion, Sky Nomad</div>
             </div>
             
             <div class="archetypes-container">
@@ -499,6 +528,66 @@
             return symbol;
         }
 
+        // Card preview functionality
+        const cardCache = new Map();
+        const defaultImage = document.getElementById('default-image');
+        const previewImage = document.getElementById('preview-image');
+        const cardLabel = document.getElementById('card-label');
+        const defaultLabel = 'Yorion, Sky Nomad';
+
+        async function fetchCardImage(cardName) {
+            // Check cache first
+            if (cardCache.has(cardName)) {
+                return cardCache.get(cardName);
+            }
+
+            try {
+                const response = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`);
+                if (!response.ok) throw new Error('Card not found');
+                
+                const data = await response.json();
+                const imageUrl = data.image_uris?.large || data.image_uris?.normal;
+                
+                // Cache the result
+                cardCache.set(cardName, imageUrl);
+                return imageUrl;
+            } catch (error) {
+                console.error('Error fetching card:', error);
+                return null;
+            }
+        }
+
+        function showCardPreview(cardName) {
+            fetchCardImage(cardName).then(imageUrl => {
+                if (imageUrl) {
+                    previewImage.src = imageUrl;
+                    previewImage.alt = cardName;
+                    previewImage.style.display = 'block';
+                    
+                    // Smooth transition
+                    requestAnimationFrame(() => {
+                        defaultImage.classList.add('hidden');
+                        previewImage.classList.add('visible');
+                    });
+                    
+                    cardLabel.textContent = cardName;
+                }
+            });
+        }
+
+        function hideCardPreview() {
+            defaultImage.classList.remove('hidden');
+            previewImage.classList.remove('visible');
+            cardLabel.textContent = defaultLabel;
+            
+            // Hide preview image after transition
+            setTimeout(() => {
+                if (!previewImage.classList.contains('visible')) {
+                    previewImage.style.display = 'none';
+                }
+            }, 300);
+        }
+
         // Generate archetype cards
         function generateArchetypes() {
             const grid = document.getElementById('archetypes-grid');
@@ -568,12 +657,18 @@
             data.cards.forEach(card => {
                 const cardItem = document.createElement('div');
                 cardItem.className = 'card-item';
+                cardItem.dataset.cardName = card;
                 
                 const cardName = document.createElement('div');
                 cardName.className = 'card-name';
                 cardName.textContent = card;
                 
                 cardItem.appendChild(cardName);
+                
+                // Add hover events for card preview
+                cardItem.addEventListener('mouseenter', () => showCardPreview(card));
+                cardItem.addEventListener('mouseleave', () => hideCardPreview());
+                
                 cardList.appendChild(cardItem);
             });
             
@@ -594,6 +689,9 @@
             panel.classList.remove('active');
             panel.setAttribute('aria-hidden', 'true');
             grid.classList.remove('dimmed');
+            
+            // Reset preview when closing panel
+            hideCardPreview();
         }
 
         // Event listeners
