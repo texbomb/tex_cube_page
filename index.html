@@ -685,17 +685,20 @@
         function hideCardPanel() {
             const panel = document.getElementById('card-panel');
             const grid = document.getElementById('archetypes-grid');
-            
+
             panel.classList.remove('active');
             panel.setAttribute('aria-hidden', 'true');
             grid.classList.remove('dimmed');
-            
+
             // Reset preview when closing panel
             hideCardPreview();
         }
 
         // Event listeners
         document.getElementById('close-panel').addEventListener('click', hideCardPanel);
+
+        // Reset preview when mouse leaves card list area
+        document.getElementById('card-list').addEventListener('mouseleave', hideCardPreview);
         
         // Close panel with Escape key
         document.addEventListener('keydown', (e) => {
